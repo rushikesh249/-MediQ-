@@ -1,180 +1,470 @@
-# MediQ - Healthcare Assistance Platform
+<!-- PROJECT SHIELDS -->
+[![Node.js](https://img.shields.io/badge/Node.js-16%2B-green?style=flat&logo=node.js)](https://nodejs.org)
+[![React](https://img.shields.io/badge/React-18-blue?style=flat&logo=react)](https://reactjs.org)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=flat&logo=typescript)](https://www.typescriptlang.org)
+[![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-green?style=flat&logo=mongodb)](https://www.mongodb.com)
+[![License](https://img.shields.io/github/license/rushikesh249/-MediQ-?color=blue)](LICENSE)
 
-MediQ is a comprehensive healthcare assistance platform that leverages artificial intelligence to analyze medical reports and provide accessible insights to patients and healthcare professionals.
+<br />
 
-## 🚀 Features
+<div align="center">
+  <a href="https://github.com/rushikesh249/-MediQ-">
+    <img src="https://placehold.co/120x120?text=MEDIQ" alt="Logo" width="120" height="120">
+  </a>
 
-- **AI-Powered Medical Analysis**: Upload medical reports (images/PDFs) for AI-powered analysis
-- **Multi-role Interface**: Separate dashboards for patients and doctors
-- **OCR Technology**: Extracts text from medical documents for analysis
-- **Specialist Recommendations**: AI suggests appropriate specialists based on report findings
-- **Urgency Assessment**: Evaluates and categorizes the urgency level of medical conditions
-- **Personalized Recommendations**: Provides diet plans and follow-up questions
-- **Secure Authentication**: JWT-based authentication system
+<h3 align="center">MediQ - Healthcare Assistance Platform</h3>
+
+  <p align="center">
+    AI-powered medical report analysis platform connecting patients with healthcare insights
+    <br />
+    <a href="https://github.com/rushikesh249/-MediQ-/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/rushikesh249/-MediQ-/issues">Request Feature</a>
+  </p>
+</div>
+
+## 📋 Table of Contents
+
+- [Overview](#overview)
+- [Key Features](#key-features)
+- [Tech Stack](#tech-stack)
+- [System Architecture](#system-architecture)
+- [Project Structure](#project-structure)
+- [Setup Instructions](#setup-instructions)
+- [API Reference](#api-reference)
+- [AI/OCR Pipeline](#aiocr-pipeline)
+- [Security & Privacy](#security--privacy)
+- [Environment Variables](#environment-variables)
+- [Screenshots](#screenshots)
+- [Roadmap](#roadmap)
+- [Contributing](#contributing)
+- [License](#license)
+
+## 🎯 Overview
+
+MediQ is a comprehensive healthcare assistance platform that bridges the gap between complex medical reports and patient understanding through artificial intelligence. Built with modern web technologies, MediQ enables patients and healthcare professionals to analyze medical documents, receive simplified explanations, and get actionable healthcare insights.
+
+**⚠️ Medical Disclaimer**: MediQ is an educational and assistance tool designed to enhance healthcare accessibility. It does not provide medical diagnoses. Always consult qualified healthcare professionals for medical advice and treatment decisions.
+
+## ✨ Key Features
+
+| Feature | Description |
+|---------|-------------|
+| **AI-Powered Analysis** | Upload medical reports (images/PDFs) for intelligent analysis using LLM technology |
+| **Multi-Role Interface** | Dedicated dashboards for patients and healthcare professionals |
+| **Advanced OCR Integration** | Extract text from medical documents using Tesseract.js for accurate processing |
+| **Smart Specialist Matching** | AI recommends appropriate medical specialists based on report findings |
+| **Urgency Classification** | Automated assessment of medical condition urgency levels |
+| **Personalized Recommendations** | Custom diet plans and follow-up questions tailored to individual cases |
+| **Secure Authentication** | JWT-based authentication with role-based access control |
+| **Real-time Processing** | Instant analysis results with visual health indicators |
 
 ## 🛠️ Tech Stack
 
 ### Frontend
-- **React** - JavaScript library for building user interfaces
-- **TypeScript** - Typed superset of JavaScript
-- **Vite** - Fast build tool
-- **Material UI (MUI)** - Component library for React
-- **React Router** - Declarative routing for React
-- **Axios** - Promise-based HTTP client
+```javascript
+React 18 • TypeScript • Vite • Material UI • React Router • Axios
+```
 
 ### Backend
-- **Node.js** - JavaScript runtime environment
-- **Express** - Web application framework
-- **TypeScript** - Typed superset of JavaScript
-- **MongoDB** - NoSQL database
-- **Mongoose** - Object Data Modeling (ODM) library
-- **Ollama** - Local LLM runner with llama3.2 model
-- **Tesseract.js** - OCR library
-- **Multer** - Middleware for handling multipart/form-data
+```javascript
+Node.js • Express • TypeScript • MongoDB • Mongoose • Ollama • Tesseract.js • Multer
+```
+
+### Infrastructure & DevOps
+```javascript
+Vercel (Frontend) • Railway/Render (Backend) • MongoDB Atlas • Docker (Planned)
+```
+
+## 🏗️ System Architecture
+
+```mermaid
+graph TB
+    A[React Frontend] --> B[Express API Gateway]
+    B --> C[MongoDB Database]
+    B --> D[Ollama LLM Service]
+    B --> E[Tesseract OCR Engine]
+    B --> F[Multer File Handler]
+    G[Medical Reports] --> A
+    A --> H{User Roles}
+    H --> I[Patient Dashboard]
+    H --> J[Doctor Interface]
+```
 
 ## 📁 Project Structure
 
 ```
 MediQ/
-├── backend/                 # Backend server code
+├── backend/                          # Node.js/Express backend server
 │   ├── src/
-│   │   ├── config/          # Database configuration
-│   │   ├── controllers/     # API controllers
-│   │   ├── models/          # Database models
-│   │   ├── routes/          # API route definitions
-│   │   ├── services/        # Business logic services
-│   │   └── server.ts        # Main server file
-│   ├── package.json
-│   └── tsconfig.json
-├── health-assist-frontend/  # Frontend React application
+│   │   ├── config/                   # Database configuration
+│   │   │   └── db.ts                 # MongoDB connection setup
+│   │   ├── controllers/              # Request handlers
+│   │   │   ├── aiController.ts       # AI analysis logic
+│   │   │   └── authController.ts     # Authentication handlers
+│   │   ├── models/                   # Database schemas
+│   │   │   └── User.ts               # User model definition
+│   │   ├── routes/                   # API route definitions
+│   │   │   ├── aiRoutes.ts           # AI service endpoints
+│   │   │   └── authRoutes.ts         # Auth service endpoints
+│   │   ├── services/                 # Business logic
+│   │   │   └── ocrService.ts         # OCR processing service
+│   │   └── server.ts                 # Main application entry point
+│   ├── uploads/                      # Temporary file storage
+│   ├── package.json                  # Backend dependencies
+│   └── tsconfig.json                 # TypeScript configuration
+│
+├── health-assist-frontend/           # React frontend application
 │   ├── src/
-│   │   ├── components/      # Reusable UI components
-│   │   ├── pages/           # Application pages
-│   │   ├── services/        # API and business logic
-│   │   └── styles/          # Styling files
-│   ├── package.json
-│   └── tsconfig.json
-└── README.md
+│   │   ├── components/               # Reusable UI components
+│   │   │   ├── common/               # Shared components
+│   │   │   │   ├── ErrorBoundary.tsx
+│   │   │   │   ├── HealthMeter.tsx
+│   │   │   │   ├── ParameterTable.tsx
+│   │   │   │   └── UrgencyBadge.tsx
+│   │   │   ├── doctor/               # Doctor-specific components
+│   │   │   │   ├── KanbanBoard.tsx
+│   │   │   │   └── RealTimeAlerts.tsx
+│   │   │   ├── layout/               # Layout components
+│   │   │   │   ├── DashboardLayout.tsx
+│   │   │   │   ├── Header.tsx
+│   │   │   │   └── Sidebar.tsx
+│   │   │   ├── map/                  # Mapping components
+│   │   │   │   └── HospitalMap.tsx
+│   │   │   ├── patient/              # Patient-specific components
+│   │   │   │   └── EmergencyAlert.tsx
+│   │   │   └── simulation/           # Simulation components
+│   │   │       ├── FamilyDashboard.tsx
+│   │   │       └── WhatsAppBot.tsx
+│   │   ├── pages/                    # Application pages
+│   │   │   ├── DoctorDashboard.tsx
+│   │   │   ├── Login.tsx
+│   │   │   ├── PatientHistory.tsx
+│   │   │   ├── PatientPortal.tsx
+│   │   │   ├── ReportUpload.tsx
+│   │   │   ├── ReportView.tsx
+│   │   │   ├── Signup.tsx
+│   │   │   └── WhatsAppChat.tsx
+│   │   ├── services/                 # API clients and utilities
+│   │   │   ├── aiService.ts          # AI analysis service
+│   │   │   ├── api.ts                # HTTP client configuration
+│   │   │   └── authService.ts        # Authentication service
+│   │   ├── styles/                   # Styling files
+│   │   │   ├── globals.css           # Global styles
+│   │   │   └── theme.ts              # MUI theme configuration
+│   │   ├── App.tsx                   # Main application component
+│   │   └── main.tsx                  # React entry point
+│   ├── public/                       # Static assets
+│   ├── package.json                  # Frontend dependencies
+│   └── vite.config.ts                # Vite build configuration
+│
+├── .gitignore                        # Git ignore rules
+└── README.md                         # Project documentation
 ```
 
-## 🚀 Getting Started
+## ⚙️ Setup Instructions
 
 ### Prerequisites
 
 - Node.js (v16 or higher)
-- MongoDB (local or cloud instance)
-- Ollama installed locally (for AI features)
+- MongoDB (local installation or MongoDB Atlas account)
+- Ollama installed locally for AI features
 - Git
 
-### Installation
+### Backend Setup
 
-#### Backend Setup
-
-1. Navigate to the backend directory:
+1. **Navigate to backend directory**
 ```bash
 cd MediQ/backend
 ```
 
-2. Install dependencies:
+2. **Install dependencies**
 ```bash
 npm install
 ```
 
-3. Create a `.env` file in the backend root directory:
+3. **Create environment configuration**
+
+Create a `.env` file in the backend root directory with the following content:
+
 ```env
 PORT=5000
 MONGO_URI=mongodb://localhost:27017/mediq
-JWT_SECRET=your_jwt_secret_key
+JWT_SECRET=your_secure_jwt_secret_here
+NODE_ENV=development
 ```
 
-4. Build the TypeScript code:
+4. **Build TypeScript**
 ```bash
 npm run build
 ```
 
-5. Start the server:
+5. **Start development server**
 ```bash
-npm start
-# Or for development with auto-reload:
+# Development mode with auto-reload
 npm run dev
+
+# Production mode
+npm start
 ```
 
-#### Frontend Setup
+### Frontend Setup
 
-1. Navigate to the frontend directory:
+1. **Navigate to frontend directory**
 ```bash
 cd MediQ/health-assist-frontend
 ```
 
-2. Install dependencies:
+2. **Install dependencies**
 ```bash
 npm install
 ```
 
-3. Start the development server:
+3. **Start development server**
 ```bash
 npm run dev
 ```
 
-## 🔧 API Endpoints
+4. **Build for production**
+```bash
+npm run build
+```
 
-### Authentication
-- `POST /api/auth/register` - Register a new user
-- `POST /api/auth/login` - Login user
-- `GET /api/auth/profile` - Get user profile (requires authentication)
+## 🔧 API Reference
 
-### AI Services
-- `POST /api/ai/analyze` - Analyze medical report (requires file upload, requires authentication)
+### Authentication Endpoints
 
-## 🤖 AI Features
+| Endpoint | Method | Auth Required | Description |
+|----------|--------|---------------|-------------|
+| `/api/auth/register` | POST | ❌ | Register new user account |
+| `/api/auth/login` | POST | ❌ | Authenticate user credentials |
+| `/api/auth/profile` | GET | ✅ | Retrieve authenticated user profile |
 
-MediQ uses Ollama with the llama3.2 model to:
-- Simplify complex medical terminology
-- Recommend appropriate specialists
-- Assess urgency levels
-- Provide dietary recommendations
-- Generate follow-up questions
+### AI Analysis Endpoints
 
-## 📊 Components Overview
+| Endpoint | Method | Auth Required | Description |
+|----------|--------|---------------|-------------|
+| `/api/ai/analyze` | POST | ✅ | Analyze medical report with AI |
 
-### Frontend Pages
-- **Login/Signup** - User authentication
-- **Patient Portal** - Patient dashboard and history
-- **Doctor Dashboard** - Medical professional interface
-- **Report Upload** - Upload and analyze medical reports
-- **Report View** - Detailed view of analyzed reports
+**Example Request:**
+```bash
+curl -X POST http://localhost:5000/api/ai/analyze \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -F "report=@medical_report.pdf"
+```
 
-### Key Components
-- **HealthMeter** - Visual health indicators
-- **ParameterTable** - Display medical parameters
-- **UrgencyBadge** - Visual urgency indicators
-- **HospitalMap** - Map integration for nearby hospitals
-- **KanbanBoard** - Doctor's patient management
-- **RealTimeAlerts** - Critical patient notifications
+## 🤖 AI/OCR Pipeline
+
+### How It Works
+
+1. **Document Upload** → User uploads medical report (PDF/Image)
+2. **OCR Processing** → Tesseract.js extracts text from document
+3. **LLM Analysis** → Ollama processes extracted text with llama3.2 model
+4. **Intelligent Parsing** → AI generates structured medical insights
+5. **Results Delivery** → Frontend displays analysis with recommendations
+
+### Analysis Components
+
+- **Medical Explanation**: Simplified interpretation of complex medical terminology
+- **Specialist Recommendation**: Appropriate medical specialty suggestions
+- **Urgency Assessment**: Condition severity classification (High/Medium/Low)
+- **Dietary Guidance**: Personalized nutritional recommendations
+- **Follow-up Questions**: Relevant questions for patient-doctor discussions
+
+## 🔒 Security & Privacy
+
+### Implemented Security Measures
+
+- **JWT Authentication**: Secure token-based user authentication
+- **Password Hashing**: bcrypt encryption for credential protection
+- **Input Validation**: Comprehensive data sanitization and validation
+- **CORS Protection**: Controlled cross-origin resource sharing
+- **Rate Limiting**: API request throttling to prevent abuse
+- **File Type Validation**: Restricted upload formats for security
+
+### Data Privacy
+
+- **No PHI Storage**: Protected Health Information is not permanently stored
+- **Temporary Processing**: Files are deleted after analysis completion
+- **Encrypted Transmission**: HTTPS/TLS for secure data transfer
+- **Access Control**: Role-based permissions for data access
 
 ## 🌐 Environment Variables
 
-### Backend (.env)
-- `PORT` - Server port (default: 5000)
-- `MONGO_URI` - MongoDB connection string
-- `JWT_SECRET` - Secret key for JWT signing
+### Backend Configuration (`.env`)
+
+```env
+# Server Configuration
+PORT=5000
+NODE_ENV=development
+
+# Database Connection
+MONGO_URI=mongodb://localhost:27017/mediq
+# For production: mongodb+srv://username:password@cluster.mongodb.net/mediq
+
+# Security
+JWT_SECRET=your_very_secure_secret_key_here
+BCRYPT_SALT_ROUNDS=12
+
+# Optional Features
+OLLAMA_HOST=http://localhost:11434
+UPLOAD_LIMIT=10MB
+```
+
+### Frontend Configuration (`.env`)
+
+```env
+# API Configuration
+VITE_API_BASE_URL=http://localhost:5000/api
+# For production: https://your-backend-domain.com/api
+
+# Feature Flags
+VITE_ENABLE_DEBUG=true
+VITE_MAX_FILE_SIZE=10MB
+```
+
+## 📸 Screenshots
+
+> **Note**: Screenshots will be added once the application is fully developed and deployed.
+
+### Dashboard Interface
+![Dashboard](./screenshots/dashboard.png)
+*Main user dashboard with health metrics and navigation*
+
+### Report Upload
+![Upload Page](./screenshots/upload.png)
+*Medical report upload interface with drag-and-drop functionality*
+
+### Analysis Results
+![Analysis Output](./screenshots/analysis.png)
+*AI-generated medical analysis with recommendations*
+
+### Doctor Interface
+![Doctor Dashboard](./screenshots/doctor-dashboard.png)
+*Professional interface for healthcare providers*
+
+## 🗺️ Roadmap
+
+### Phase 1: Core Enhancements ✅
+- [x] Multi-role authentication system
+- [x] Basic medical report analysis
+- [x] Patient and doctor dashboards
+
+### Phase 2: Advanced Features 🚀
+- [ ] Enhanced OCR accuracy for medical documents
+- [ ] Role-based access control improvements
+- [ ] Real-time notification system
+- [ ] Mobile-responsive design enhancements
+
+### Phase 3: Infrastructure & Scaling 🏗️
+- [ ] Docker containerization for easy deployment
+- [ ] CI/CD pipeline implementation
+- [ ] Performance monitoring and logging
+- [ ] Load balancing and horizontal scaling
+
+### Phase 4: Intelligence & Analytics 📊
+- [ ] Advanced ML model evaluation metrics
+- [ ] Predictive health trend analysis
+- [ ] Integration with electronic health records (EHR)
+- [ ] Telemedicine consultation features
+
+### Phase 5: Enterprise Features 🔒
+- [ ] HIPAA compliance certification
+- [ ] Multi-tenant architecture
+- [ ] Advanced analytics dashboard
+- [ ] API marketplace for third-party integrations
 
 ## 🤝 Contributing
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+Contributions are welcome! Here's how you can help improve MediQ:
+
+### Getting Started
+
+1. **Fork the repository on GitHub first**
+   - Visit https://github.com/rushikesh249/-MediQ-
+   - Click the "Fork" button in the top-right corner
+
+2. **Clone your fork**
+```bash
+git clone https://github.com/YOUR_USERNAME/-MediQ-.git
+cd MediQ
+```
+
+3. **Create feature branch**
+```bash
+git checkout -b feature/amazing-new-feature
+```
+
+4. **Make your changes**
+```bash
+# Follow the project structure and coding standards
+# Write clean, well-documented code
+```
+
+5. **Commit your changes**
+```bash
+git commit -m "feat: add amazing new feature"
+```
+
+6. **Push to branch**
+```bash
+git push origin feature/amazing-new-feature
+```
+
+7. **Open Pull Request**
+
+### Contribution Guidelines
+
+- Follow TypeScript best practices
+- Maintain consistent code formatting
+- Write comprehensive tests for new features
+- Update documentation as needed
+- Adhere to commit message conventions
+
+### Code Quality Standards
+
+- Use ESLint with provided configuration
+- Maintain 80%+ test coverage
+- Document public APIs and complex logic
+- Follow semantic versioning for releases
 
 ## 📄 License
 
-This project is licensed under the ISC License.
+This project is licensed under the ISC License - see the [LICENSE](LICENSE) file for details.
 
-## 💬 Support
+```
+ISC License
 
-For support, please open an issue in the repository.
+Copyright (c) 2024, Rushikesh Patil
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted, provided that the above
+copyright notice and this permission notice appear in all copies.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+```
+
+## 🙏 Acknowledgments
+
+- **Ollama Team** for the excellent local LLM platform
+- **Tesseract.js** for robust OCR capabilities
+- **MongoDB Community** for the flexible database solution
+- **Open Source Community** for invaluable libraries and tools
 
 ---
 
-Made with ❤️ for better healthcare accessibility
+<p align="center">
+  Made with ❤️ for better healthcare accessibility
+  <br />
+  <a href="https://github.com/rushikesh249/-MediQ-/stargazers">⭐ Star this project</a>
+  ·
+  <a href="https://github.com/rushikesh249/-MediQ-/fork">🍴 Fork this project</a>
+  ·
+  <a href="https://github.com/rushikesh249/-MediQ-/issues">🐛 Report Issues</a>
+</p>

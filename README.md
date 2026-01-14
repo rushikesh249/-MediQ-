@@ -300,7 +300,8 @@ NODE_ENV=development
 
 # Database Connection
 MONGO_URI=mongodb://localhost:27017/mediq
-# For production: mongodb+srv://username:password@cluster.mongodb.net/mediq
+# For production:
+MONGO_URI=<YOUR_MONGODB_ATLAS_URI>
 
 # Security
 JWT_SECRET=your_very_secure_secret_key_here
